@@ -4,32 +4,12 @@ A containerized Hello World web application deployed to Kubernetes with Helm.
 
 ## Documentation
 
-1. The project structure
-2. Prerequisites
-3. Step-by-step instructions for:
+1. Prerequisites
+2. Step-by-step instructions for:
    - Building the container
    - Running locally with Docker
    - Deploying with Helm
-4. Includes maintenance instructions
-
-
-## Project Structure 
-
-hello-world-app/
-├── README.md                             # Project documentation
-├── hello-world-chart/                    # Helm chart directory
-│   ├── Chart.yaml                        # Chart metadata
-│   ├── templates/                        # Templates directory
-│   │   ├── deployment.yaml               # Deployment template
-│   │   ├── hpa.yaml                      # Horizontal Pod Autoscaler template
-│   │   └── service.yaml                  # Service template
-│   ├── values-production.yaml            # Production environment values
-│   └── values.yaml                       # Default values (development)
-├── app.py                                # Flask application
-├── Dockerfile                            # Container definition
-├── docker-compose.yml                    # Docker Compose configuration
-└── requirements.txt                      # Python dependencies
-
+3. Includes maintenance instructions
 
 ## Prerequisites
 
@@ -110,7 +90,6 @@ The following tools are required to build, run, and deploy this application:
   ```
 
 ### Kubernetes Cluster
-Choose one of the following options:
 
 #### Minikube (Local Development)
 - **All Platforms**:

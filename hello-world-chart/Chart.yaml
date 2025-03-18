@@ -20,9 +20,9 @@ appVersion: "1.0.0"
 maintainers:  
   - name: Jonathan Asare  
     
-# URL to the source code repository
+# URL to repository
 sources:  
-  - https://github.com/yourusername/hello-world-app  
+  - https://github.com/MyEngineer7/hello-world-app 
 
 
 
