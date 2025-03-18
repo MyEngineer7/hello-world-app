@@ -119,7 +119,8 @@ helm version
    ```
 
 2. Verify the image was created:
-    On Linux:
+
+   On Linux:
    ```
    docker images | grep hello-world-app
    ```
