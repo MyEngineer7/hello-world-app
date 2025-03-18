@@ -1,0 +1,31 @@
+# Production environment settings
+environment: production
+
+# Increased replicas and autoscaling for production
+replicaCount: 3
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+
+# Enhanced resources for production workloads
+resources:
+  requests:
+    memory: "256Mi"  
+    cpu: "200m"      
+  limits:
+    memory: "512Mi"  
+    cpu: "500m"      
+
+# More health checks for production
+livenessProbe:
+  initialDelaySeconds: 30  
+  periodSeconds: 20        
+  timeoutSeconds: 5        
+  failureThreshold: 3      
+
+# Production logging configuration
+logging:
+  level: info  
+  format: json  

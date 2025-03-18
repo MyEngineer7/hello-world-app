@@ -1,0 +1,52 @@
+apiVersion: apps/v1  # API version for Deployment
+kind: Deployment  # Define Deployment
+metadata:
+  name: hello-world-app  # Name of Deployment
+  labels:
+    app: hello-world-app  # Labels for resource identification
+spec:
+  {{- if not .Values.autoscaling.enabled }}  # Check if autoscaling is disabled
+  replicas: {{ .Values.replicaCount }}  # Set the number of replicas if autoscaling is disabled
+  {{- end }}
+  selector:
+    matchLabels:
+      app: hello-world-app  # Selector to match Pods for Deployment
+  template:
+    metadata:
+      labels:
+        app: hello-world-app  # Labels for Pods created by Deployment
+    spec:
+      securityContext:  # Security context for Pods
+        runAsNonRoot: true  # Prevents running as root
+        runAsUser: 1000  # Specifies user ID to run the container
+        runAsGroup: 1000  # Specifies group ID to run the container
+      containers:
+      - name: hello-world-app  # Name of container
+        image: {{ .Values.image }}  # Docker image for container
+        imagePullPolicy: IfNotPresent  # Pull the image only if not present locally
+        env:  # Environment variables for container
+        - name: ENVIRONMENT
+          value: {{ .Values.environment }}  # Set environment variable
+        {{- if .Values.logging }}  # Check if logging is enabled
+        - name: LOG_LEVEL
+          value: {{ .Values.logging.level }}  # Set log level
+        - name: LOG_FORMAT
+          value: {{ .Values.logging.format }}  # Set log format
+        {{- end }}
+        ports:
+        - containerPort: {{ .Values.service.targetPort }}  # Port exposed by container
+        resources:  # Resource requests and limits for container
+          {{- toYaml .Values.resources | nindent 12 }}  # Convert values to YAML
+        livenessProbe:  # Health check configuration
+          httpGet:
+            path: /health  # Path for health check
+            port: {{ .Values.service.targetPort }}  # Port for health check
+          {{- if .Values.livenessProbe }}  # If liveness probe settings are provided
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}  # Delay before first check
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}  # Frequency of checks
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}  # Timeout for each check
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}  # Number of failures before marking unhealthy
+          {{- else }}  # Default values if liveness probe settings are not provided
+          initialDelaySeconds: 10  # Default initial delay
+          periodSeconds: 30  # Default period for checks
+          {{- end }} 

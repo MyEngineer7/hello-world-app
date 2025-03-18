@@ -1,0 +1,40 @@
+# Application configuration
+replicaCount: 2
+image: hello-world-app:latest
+
+# Default development environment
+environment: development
+
+# Default autoscaling settings (disabled for development)
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+# Default resources
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "256Mi"
+    cpu: "200m"
+
+# Default health check settings
+livenessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 30
+  timeoutSeconds: 3
+  failureThreshold: 5
+
+# Default logging settings
+logging:
+  level: debug
+  format: text
+
+# Service configuration
+service:
+  type: LoadBalancer
+  port: 8000
+  targetPort: 8000 

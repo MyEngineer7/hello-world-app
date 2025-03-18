@@ -1,0 +1,30 @@
+# The API version of Helm chart
+apiVersion: v2  
+
+# The name of chart
+name: hello-world-app  
+
+# A description of chart
+description: A Helm chart for Hello World application  
+
+# The type of chart 
+type: application  
+
+# Chart version
+version: 0.1.0  
+
+# Version of the application
+appVersion: "1.0.0"  
+
+# Maintainers of chart
+maintainers:  
+  - name: Jonathan Asare  
+    
+# URL to the source code repository
+sources:  
+  - https://github.com/yourusername/hello-world-app  
+
+
+
+
+

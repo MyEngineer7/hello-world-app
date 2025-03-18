@@ -1,0 +1,20 @@
+{{- if .Values.autoscaling.enabled }}  # Enable HPA if autoscaling is configured
+apiVersion: autoscaling/v2  # API version for HPA
+kind: HorizontalPodAutoscaler  # Define HPA resource
+metadata:
+  name: hello-world-app  # Name of HPA  
+spec:
+  scaleTargetRef:  # Reference to target deployment
+    apiVersion: apps/v1  # API version for Deployment 
+    kind: Deployment  # Define Deployment
+    name: hello-world-app  # Name of Deployment
+  minReplicas: {{ .Values.autoscaling.minReplicas }}  # Minimum replicas
+  maxReplicas: {{ .Values.autoscaling.maxReplicas }}  # Maximum replicas
+  metrics:  # Metrics for scaling
+  - type: Resource
+    resource:
+      name: cpu  
+      target:
+        type: Utilization
+        averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}  # Target CPU utilization
+{{- end }} 
